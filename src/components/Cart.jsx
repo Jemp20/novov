@@ -7,6 +7,72 @@ const PAYPAL_CLIENT_ID = "AdblM_bVAzI3-1ZxepHVfjmNTWsPM64jArJugsYnOTtXRZqDJWssHJ
 
 const TRM = 4200
 
+// 🛵 ZONAS DE DOMICILIO — BARRANQUILLA
+const ZONAS_DOMI = [
+  {
+    zona: "Zona 1 — $5.000",
+    precio: 5000,
+    barrios: [
+      "El Golf","Villa Country","El Prado","Alto Prado","Altos del Prado","Ciudad Jardín",
+      "Los Nogales","Nuevo Horizonte","La Campiña","Granadillo","Bellavista","Campo Alegre",
+      "Villa Tarel","Parque Rosado","San Francisco","El Porvenir","Barrio Abajo","El Rosario",
+      "Las Delicias","Las Mercedes","Montecristo","La Concepción","El Castillo Norte"
+    ]
+  },
+  {
+    zona: "Zona 2 — $7.000",
+    precio: 7000,
+    barrios: [
+      "Altamira","Altos de Riomar","Altos del Limón","Altos del Parque","Andalucía",
+      "Buenavista","El Limoncito","El Poblado","La Castellana","La Floresta","Las Flores",
+      "San Marino","San Salvador","San Vicente","Santa Mónica","Villa Campestre",
+      "Villa Carolina","Villa del Este","Villa Santos","Villas del Puerto",
+      "Paseo de la Castellana","Palmas del Río"
+    ]
+  },
+  {
+    zona: "Zona 3 — $9.000",
+    precio: 9000,
+    barrios: [
+      "Buenos Aires","Ciudadela 20 de Julio","El Santuario","La Sierrita","La Victoria",
+      "Las Américas","Las Cayenas","Las Gardenias","Las Granjas","Los Continentes",
+      "Los Girasoles","Santa María","Santo Domingo de Guzmán","Villa San Carlos",
+      "Carrizal","Cevillar","7 de Abril","20 de Julio","La Alboraya"
+    ]
+  },
+  {
+    zona: "Zona 4 — $12.000",
+    precio: 12000,
+    barrios: [
+      "Buena Esperanza","California","Caribe Verde","Carlos Meisel","Chiquinquirá",
+      "Ciudad Modesto","Colina Campestre","Cordialidad","Cuchilla de Villate","El Edén 2000",
+      "El Romance","El Silencio","Evaristo Sourdis","La Esmeralda","La Florida",
+      "La Libertad","La Pradera","Las Colinas","Las Estrellas","Las Malvinas",
+      "Las Terrazas","Loma Fresca","Los Olivos I","Los Olivos II","Los Rosales",
+      "Me Quejo","Nueva Granada","Olaya Herrera"
+    ]
+  },
+  {
+    zona: "Zona 5 — $15.000",
+    precio: 15000,
+    barrios: [
+      "Atlántico","Bella Arena","El Campito","El Milagro","José Antonio Galán",
+      "La Chinita","La Magdalena","Las Nieves","Las Palmas","Las Palmeras",
+      "Los Laureles","Los Trupillos","Primero de Mayo","San Nicolás","Santa Elena",
+      "Simón Bolívar","Universal I","Universal II","Villa Blanca","Villa del Carmen",
+      "Alfonso López","Kennedy","Montes","Siape","Pumarejo","Rebolo"
+    ]
+  },
+  {
+    zona: "Zona 6 — $18.000 (Soledad / Puerto Colombia)",
+    precio: 18000,
+    barrios: [
+      "Soledad","Barrio Caracolí","Ciudad Caribe","Ciudadela Metropolitana",
+      "Puerto Colombia","Villa Campestre Norte","Juan Mina","La Playa","Malambo"
+    ]
+  },
+]
+
 function fmt(n)    { return '$' + Number(n).toLocaleString('es-CO') + ' COP' }
 function fmtUSD(n) { return '~$' + (Number(n) / TRM).toFixed(2) + ' USD' }
 
@@ -88,6 +154,8 @@ export default function Cart({ cart, isOpen, onClose, onAdd, onRemove, onDelete 
     nombre: "", apellidos: "", whatsapp: "",
     correo: "", direccion: "", ciudad: ""
   })
+  const [zonaSel, setZonaSel]         = useState(null)
+  const [barrioSel, setBarrioSel]     = useState("")
   const [error, setError]             = useState("")
   const [success, setSuccess]         = useState(false)
   const [idPedido, setIdPedido]       = useState("")
@@ -96,7 +164,19 @@ export default function Cart({ cart, isOpen, onClose, onAdd, onRemove, onDelete 
   const [paypalFase, setPaypalFase]   = useState('form')
   const [paypalDetails, setPaypalDetails] = useState(null)
 
-  const handleChange = (e) => { setFormData({ ...formData, [e.target.name]: e.target.value }); setError("") }
+  const esBarranquilla = formData.ciudad.toLowerCase().includes("barranquilla") ||
+                         formData.ciudad.toLowerCase().includes("bquilla")
+
+  const costoEnvio  = esBarranquilla ? (zonaSel ? zonaSel.precio : 0) : 0
+  const descuento   = (tipoPagoSel === "descuento_bold" || tipoPagoSel === "descuento_paypal")
+    ? Math.round(total * 0.8) : total
+  const totalFinal  = descuento + costoEnvio
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+    setError("")
+    if (e.target.name === "ciudad") { setZonaSel(null); setBarrioSel("") }
+  }
 
   const irAPaso2 = () => { setPaso(2); setMostrarSubPago(false); setPaypalFase('form') }
   const irAPaso3 = (tipo) => { setTipoPagoSel(tipo); setPaso(3); setMostrarSubPago(false); setPaypalFase('form') }
@@ -110,12 +190,12 @@ export default function Cart({ cart, isOpen, onClose, onAdd, onRemove, onDelete 
   const esPaypal = (t) => t === "paypal" || t === "descuento_paypal"
   const esBold   = (t) => t === "bold"   || t === "descuento_bold"
 
-  const totalFinal = (tipoPagoSel === "descuento_bold" || tipoPagoSel === "descuento_paypal")
-    ? Math.round(total * 0.8) : total
-
   const validarForm = () => {
     if (!formData.nombre || !formData.apellidos || !formData.whatsapp || !formData.direccion || !formData.ciudad) {
       setError("⚠️ Completa todos los datos antes de continuar"); return false
+    }
+    if (esBarranquilla && !zonaSel) {
+      setError("⚠️ Selecciona tu zona de domicilio en Barranquilla"); return false
     }
     setError(""); return true
   }
@@ -124,19 +204,22 @@ export default function Cart({ cart, isOpen, onClose, onAdd, onRemove, onDelete 
     if (!validarForm()) return
     try {
       const pedidoData = {
-        ...formData, tipoPago: tipoPagoSel, total: Number(totalFinal || 0),
+        ...formData,
+        barrio: barrioSel,
+        zonaDomi: zonaSel ? zonaSel.zona : "",
+        costoDomi: costoEnvio,
+        tipoPago: tipoPagoSel,
+        total: Number(totalFinal || 0),
         productos: cart.map(p => ({ id: p.id, name: p.name, price: Number(p.price || 0), qty: Number(p.qty || 1) }))
       }
       const id = await crearPedido(pedidoData)
       setIdPedido(id)
       setSuccess(true)
 
-      // Enviar correo primero (contraentrega y Bold)
       if (tipoPagoSel === "contraentrega" || esBold(tipoPagoSel)) {
         await enviarCorreoConfirmacion(pedidoData, id)
       }
 
-      // Bold: abre la pasarela DESPUÉS de que el correo se envió
       if (esBold(tipoPagoSel)) {
         setTimeout(() => {
           const url = "https://checkout.bold.co/payment/LNK_C4QRVVIMZB"
@@ -157,16 +240,18 @@ export default function Cart({ cart, isOpen, onClose, onAdd, onRemove, onDelete 
     setPaypalDetails(details)
     try {
       const pedidoData = {
-        ...formData, tipoPago: tipoPagoSel, total: Number(totalFinal || 0),
+        ...formData,
+        barrio: barrioSel,
+        zonaDomi: zonaSel ? zonaSel.zona : "",
+        costoDomi: costoEnvio,
+        tipoPago: tipoPagoSel,
+        total: Number(totalFinal || 0),
         paypalOrderId: details.id,
         paypalPayer: details.payer?.email_address || '',
         productos: cart.map(p => ({ id: p.id, name: p.name, price: Number(p.price || 0), qty: Number(p.qty || 1) }))
       }
       const id = await crearPedido(pedidoData)
-
-      // PayPal confirmó el pago — enviamos el correo ahora ✅
       await enviarCorreoConfirmacion(pedidoData, id)
-
       setIdPedido(id); setSuccess(true)
     } catch (err) { console.error(err); setError("❌ Pago recibido pero error al guardar. Contacta por WhatsApp.") }
   }
@@ -180,10 +265,7 @@ export default function Cart({ cart, isOpen, onClose, onAdd, onRemove, onDelete 
     : mostrarSubPago ? "Elige cómo pagar" : titulos[paso]
   const showBack    = (paso > 1 || mostrarSubPago || paypalFase === 'paypal_buttons') && !success
 
-  const paypalBtnStyle = {
-    opacity: 1,
-    cursor: 'pointer'
-  }
+  const paypalBtnStyle = { opacity: 1, cursor: 'pointer' }
 
   return (
     <>
@@ -362,22 +444,80 @@ export default function Cart({ cart, isOpen, onClose, onAdd, onRemove, onDelete 
             {/* 📋 Formulario datos de envío */}
             {!success && paypalFase !== 'paypal_buttons' && (
               <>
+                {/* Resumen de pago */}
                 <div style={{ background: 'rgba(201,169,110,0.08)', border: '1px solid rgba(201,169,110,0.15)', borderRadius: '2px', padding: '0.6rem 1rem', marginBottom: '1rem', fontSize: '0.82rem', color: 'var(--gold-light)', opacity: 0.85 }}>
-                  {tipoPagoSel === "contraentrega"    && `💚 Pago al recibir — ${fmt(total)} · ${fmtUSD(total)}`}
-                  {tipoPagoSel === "bold"             && `💜 Bold — ${fmt(total)} · ${fmtUSD(total)}`}
-                  {tipoPagoSel === "paypal"           && `💙 PayPal — ${fmt(total)} · ${fmtUSD(total)}`}
-                  {tipoPagoSel === "descuento_bold"   && `💛 20% OFF · Bold — ${fmt(Math.round(total * 0.8))} · ${fmtUSD(Math.round(total * 0.8))}`}
-                  {tipoPagoSel === "descuento_paypal" && `💛 20% OFF · PayPal — ${fmt(Math.round(total * 0.8))} · ${fmtUSD(Math.round(total * 0.8))}`}
+                  {tipoPagoSel === "contraentrega"    && `💚 Pago al recibir — ${fmt(total)}`}
+                  {tipoPagoSel === "bold"             && `💜 Bold — ${fmt(total)}`}
+                  {tipoPagoSel === "paypal"           && `💙 PayPal — ${fmt(total)}`}
+                  {tipoPagoSel === "descuento_bold"   && `💛 20% OFF · Bold — ${fmt(Math.round(total * 0.8))}`}
+                  {tipoPagoSel === "descuento_paypal" && `💛 20% OFF · PayPal — ${fmt(Math.round(total * 0.8))}`}
+                  {costoEnvio > 0 && (
+                    <span style={{ display: 'block', marginTop: '4px', fontSize: '0.78rem', opacity: 0.7 }}>
+                      🛵 Domicilio: +{fmt(costoEnvio)}
+                    </span>
+                  )}
+                  {costoEnvio > 0 && (
+                    <span style={{ display: 'block', fontSize: '0.82rem', color: 'var(--gold)', fontWeight: 'bold', marginTop: '2px' }}>
+                      Total con domi: {fmt(totalFinal)}
+                    </span>
+                  )}
                 </div>
+
                 <p style={{ color: 'var(--gold)', fontFamily: 'var(--font-heading)', fontSize: '0.72rem', letterSpacing: '0.1em', marginBottom: '0.8rem', opacity: 0.8 }}>DATOS DE ENVÍO</p>
+
                 <div className={styles.formScroll}>
                   <input name="nombre"    placeholder="Nombre"             onChange={handleChange} className={styles.input} />
                   <input name="apellidos" placeholder="Apellidos"          onChange={handleChange} className={styles.input} />
                   <input name="whatsapp"  placeholder="WhatsApp"           onChange={handleChange} className={styles.input} />
                   <input name="correo"    placeholder="Correo electrónico" onChange={handleChange} className={styles.input} />
-                  <input name="direccion" placeholder="Dirección"          onChange={handleChange} className={styles.input} />
                   <input name="ciudad"    placeholder="Ciudad"             onChange={handleChange} className={styles.input} />
+                  <input name="direccion" placeholder="Dirección"          onChange={handleChange} className={styles.input} />
+
+                  {/* 🛵 ZONA DE DOMI — solo aparece si escribe Barranquilla */}
+                  {esBarranquilla && (
+                    <div style={{ marginTop: '0.6rem' }}>
+                      <p style={{ color: 'var(--gold)', fontSize: '0.72rem', letterSpacing: '0.1em', marginBottom: '0.5rem', opacity: 0.8 }}>
+                        🛵 ZONA DE DOMICILIO
+                      </p>
+                      <select
+                        className={styles.input}
+                        value={zonaSel ? zonaSel.zona : ""}
+                        onChange={(e) => {
+                          const found = ZONAS_DOMI.find(z => z.zona === e.target.value)
+                          setZonaSel(found || null)
+                          setBarrioSel("")
+                        }}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        <option value="">Selecciona tu zona...</option>
+                        {ZONAS_DOMI.map(z => (
+                          <option key={z.zona} value={z.zona}>{z.zona}</option>
+                        ))}
+                      </select>
+
+                      {zonaSel && (
+                        <select
+                          className={styles.input}
+                          value={barrioSel}
+                          onChange={(e) => setBarrioSel(e.target.value)}
+                          style={{ cursor: 'pointer', marginTop: '0.4rem' }}
+                        >
+                          <option value="">Selecciona tu barrio...</option>
+                          {zonaSel.barrios.map(b => (
+                            <option key={b} value={b}>{b}</option>
+                          ))}
+                        </select>
+                      )}
+
+                      {zonaSel && (
+                        <p style={{ fontSize: '0.75rem', color: 'var(--gold)', opacity: 0.7, marginTop: '0.4rem', textAlign: 'right' }}>
+                          🛵 Domicilio: <strong>{fmt(zonaSel.precio)}</strong>
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </div>
+
                 {error && <p className={styles.msgError}>{error}</p>}
 
                 {esPaypal(tipoPagoSel) ? (
@@ -388,7 +528,7 @@ export default function Cart({ cart, isOpen, onClose, onAdd, onRemove, onDelete 
                 ) : (
                   <button onClick={handlePayNormal}
                     style={{ width: '100%', background: 'var(--gold)', color: 'var(--obsidian)', border: 'none', padding: '0.9rem', fontFamily: 'var(--font-heading)', fontSize: '0.85rem', letterSpacing: '0.1em', cursor: 'pointer', borderRadius: '1px', marginTop: '1rem' }}>
-                    Confirmar pedido
+                    Confirmar pedido — {fmt(totalFinal)}
                   </button>
                 )}
                 <p className={styles.footerNote}>Envíos a toda Colombia · Edición Limitada</p>
