@@ -19,8 +19,14 @@ export const crearPedido = async (pedido) => {
   }
 };
 
-// Envía el correo de confirmación al cliente (llamar solo cuando el pago esté confirmado)
+// Envía el correo de confirmación al cliente
 export const enviarCorreoConfirmacion = async (pedido, idPedido) => {
+  console.log("EmailJS keys:", {
+    service: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+    template: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+    key: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+    correo: pedido.correo
+  })
   try {
     const productosTexto = pedido.productos
       .map(
