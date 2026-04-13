@@ -1,0 +1,95 @@
+/* ============================================================
+   NOVO.V — Ancient Greek Theme — Global Styles
+   ============================================================ */
+
+:root {
+  --gold:       #C9A96E;
+  --gold-light: #E8D5B0;
+  --gold-deep:  #A07840;
+  --marble:     #F5F0E8;
+  --marble-dark:#E8E0D0;
+  --obsidian:   #0E0C09;
+  --stone:      #1C1910;
+  --stone-mid:  #2A2518;
+  --terracotta: #8B4513;
+  --aegean:     #1B3A5C;
+  --parchment:  #F2EAD8;
+  --ink:        #1A160E;
+
+  --font-display: 'Cinzel Decorative', serif;
+  --font-heading: 'Cinzel', serif;
+  --font-body:    'EB Garamond', serif;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--obsidian);
+  color: var(--gold-light);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+
+/* ── Custom Cursor ─────────────────────────── */
+.cursor {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  opacity: 0.45;
+  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+}
+
+/* ── Greek ornament divider ─────────────────── */
+.greek-divider {
+  text-align: center;
+  color: var(--gold);
+  font-size: 1.4rem;
+  letter-spacing: 0.4em;
+  opacity: 0.5;
+  margin: 0.5rem 0;
+  user-select: none;
+}
+
+/* ── Scrollbar ─────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--stone); }
+::-webkit-scrollbar-thumb { background: var(--gold-deep); }
+
+/* ── Reveal animation ───────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

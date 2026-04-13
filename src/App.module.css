@@ -1,0 +1,70 @@
+/* App-level styles — minimal, global theming done in index.css */
+main {
+  padding-top: 0;
+}
+
+/* App.module.css */
+
+/* Contenedor principal */
+main {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 1rem;
+  background: #111; /* color neutro, sin imagen */
+}
+
+/* Secciones */
+.section {
+  padding: 4rem 2rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .section {
+    padding: 3rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .section {
+    padding: 2rem 1rem;
+  }
+
+  h1, h2 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    text-align: center;
+  }
+
+  p {
+    font-size: clamp(0.9rem, 4vw, 1rem);
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 1.5rem 0.5rem;
+  }
+
+  h1, h2 {
+    font-size: 1.3rem;
+  }
+
+  p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+

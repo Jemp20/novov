@@ -1,0 +1,97 @@
+/* LoginAdmin.module.css */
+
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #000; /* fondo negro */
+  cursor: default; /* asegura que el mouse se vea */
+}
+
+.form {
+  background-color: #111;
+  border: 2px solid #876e2f; /* dorado sobrio */
+  padding: 2rem;
+  border-radius: 8px;
+  width: 420px;
+  text-align: center;
+  color: #866206;
+  font-family: "Cinzel", serif; /* tipografía griega */
+  box-shadow: 0 0 20px rgba(201, 162, 39, 0.4);
+  cursor: default; /* asegura que el mouse se vea dentro del form */
+}
+
+.brand {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  letter-spacing: 3px;
+}
+
+.title {
+  font-size: 1.4rem;
+  margin-bottom: 0.2rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #866206; /* bronce oscuro */
+  letter-spacing: 2px;
+}
+
+.label {
+  display: block;
+  text-align: left;
+  margin: 0.5rem 0 0.2rem;
+  font-size: 0.9rem;
+  color: #866206;;
+}
+
+.input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #866206;
+  border-radius: 4px;
+  background-color: #222;
+  color: #fff;
+  font-family: "Cinzel", serif;
+}
+
+.input::placeholder {
+  color: #777;
+}
+
+.button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  background-color: #866206;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer; /* mano al pasar sobre el botón */
+  transition: 0.3s;
+  font-family: "Cinzel", serif;
+}
+
+.button:hover {
+  background-color: #d4af37; /* dorado metálico */
+  box-shadow: 0 0 12px #c9a227;
+}
+
+.error {
+  color: #ff4d4d;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.restricted {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #aaa;
+  font-style: italic;
+}

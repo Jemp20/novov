@@ -1,0 +1,40 @@
+.marquee {
+  overflow: hidden;
+  background: var(--stone);
+  padding: 0;
+}
+
+.topLine,
+.bottomLine {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.4), transparent);
+}
+
+.track {
+  display: flex;
+  white-space: nowrap;
+  animation: scroll 28s linear infinite;
+  padding: 1rem 0;
+}
+
+.item {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.sep {
+  color: rgba(201,169,110,0.3);
+  font-size: 0.9rem;
+}
+
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

@@ -1,0 +1,64 @@
+.confirmacion {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.confirmIcon {
+  font-size: 2.5rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.idBox {
+  background: var(--stone-mid);
+  border: 1px solid var(--gold-deep);
+  padding: 1.2rem;
+  margin: 1.5rem 0;
+  border-radius: 2px;
+}
+
+.idLabel {
+  font-family: var(--font-heading);
+  color: var(--gold);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.idRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.idCode {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--gold-light);
+  background: rgba(0,0,0,0.3);
+  padding: 0.4rem 0.8rem;
+  border-radius: 2px;
+  word-break: break-all;
+}
+
+.copiarBtn {
+  background: none;
+  border: 1px solid var(--gold-deep);
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  border-radius: 1px;
+  transition: all 0.2s;
+}
+.copiarBtn:hover { background: rgba(201, 169, 110, 0.1); }
+
+.idHint {
+  font-size: 0.78rem;
+  opacity: 0.5;
+  font-style: italic;
+}

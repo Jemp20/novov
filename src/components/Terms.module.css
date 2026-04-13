@@ -1,0 +1,240 @@
+.section {
+  padding: 8rem 2rem;
+  background: var(--obsidian);
+  position: relative;
+  overflow: hidden;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--gold-deep) 0, var(--gold-deep) 8px,
+    transparent 8px, transparent 12px,
+    var(--gold-deep) 12px, var(--gold-deep) 14px,
+    transparent 14px, transparent 20px
+  );
+  opacity: 0.35;
+}
+
+.frieze {
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 200px;
+  transform: translateY(-50%);
+  background: radial-gradient(ellipse at center, rgba(201,169,110,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.textCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.label {
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 1rem;
+}
+
+.ornamentRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--gold);
+  font-size: 1.5rem;
+}
+
+.ornLine {
+  flex: 1;
+  height: 1px;
+  background: rgba(201,169,110,0.3);
+  max-width: 200px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  color: var(--gold-light);
+  line-height: 1.15;
+  margin-bottom: 2rem;
+}
+
+.em {
+  font-style: italic;
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+  font-weight: 400;
+}
+
+.body {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--gold-light);
+  opacity: 0.75;
+  margin-bottom: 1rem;
+}
+
+.infoBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  border-left: 2px solid rgba(201,169,110,0.2);
+  padding-left: 1.5rem;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.infoTitle {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.infoText {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--gold-light);
+  opacity: 0.65;
+  line-height: 1.6;
+}
+
+.quoteBlock {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  border-left: 2px solid rgba(201,169,110,0.3);
+  padding-left: 1.5rem;
+  margin: 1.5rem 0 0;
+}
+
+.quoteGlyph {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: var(--gold-deep);
+  line-height: 1;
+  opacity: 0.5;
+}
+
+.quote {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--gold-deep);
+  line-height: 1.7;
+  padding-top: 0.4rem;
+}
+
+.pillarsCol {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 1rem;
+}
+
+.pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+}
+
+.pillarCapital {
+  width: 100%;
+  padding: 0.8rem 0.5rem 0.4rem;
+  border: 1px solid rgba(201,169,110,0.35);
+  border-bottom: none;
+  text-align: center;
+  background: linear-gradient(to bottom, rgba(201,169,110,0.05), transparent);
+}
+
+.pillarGlyph {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--gold);
+  opacity: 0.7;
+}
+
+.pillarShaft {
+  width: 100%;
+  border: 1px solid rgba(201,169,110,0.25);
+  border-top: none;
+  border-bottom: none;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(201,169,110,0.02) 0px,
+    rgba(201,169,110,0.02) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+  min-height: 160px;
+  justify-content: center;
+}
+
+.pillarNum {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.pillarLabel {
+  font-family: var(--font-heading);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.pillarBase {
+  width: 100%;
+  height: 8px;
+  border: 1px solid rgba(201,169,110,0.35);
+  border-top: 2px solid rgba(201,169,110,0.5);
+  background: rgba(201,169,110,0.04);
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+  .pillarsCol { order: -1; }
+  .section { padding: 5rem 1.5rem; }
+}

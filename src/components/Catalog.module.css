@@ -1,0 +1,239 @@
+.section {
+  padding: 8rem 2rem;
+  background: var(--stone);
+  position: relative;
+}
+
+/* Marble-like top border */
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--gold-deep) 0, var(--gold-deep) 6px,
+    transparent 6px, transparent 10px,
+    var(--gold-deep) 10px, var(--gold-deep) 12px,
+    transparent 12px, transparent 18px
+  );
+  opacity: 0.4;
+}
+
+.topDeco {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.decoLine {
+  flex: 1;
+  max-width: 100px;
+  height: 1px;
+  background: rgba(201,169,110,0.35);
+}
+
+.decoGlyph {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  color: var(--gold-deep);
+}
+
+.label {
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  text-align: center;
+  margin-bottom: 0.6rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--gold-light);
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.em {
+  font-style: italic;
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+/* Filter tabs styled as Greek inscription stones */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 3.5rem;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  background: none;
+  border: 1px solid rgba(201,169,110,0.25);
+  color: var(--gold-deep);
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 0.55rem 1.4rem;
+  cursor: none;
+  transition: all 0.3s ease;
+  position: relative;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+
+.filterBtn:hover {
+  border-color: rgba(201,169,110,0.6);
+  color: var(--gold);
+}
+
+.filterActive {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--obsidian) !important;
+}
+
+/* Product grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--obsidian);
+  border: 1px solid rgba(201,169,110,0.12);
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  animation: fadeInUp 0.5s ease both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card:hover {
+  border-color: rgba(201,169,110,0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+.imgWrap {
+  width: 100%;
+  height: 160px; /* mismo alto para todas */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.imgWrap img {
+  width: 180%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(14,12,9,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+.overlayBtn {
+  background: var(--gold);
+  color: var(--obsidian);
+  border: none;
+  font-family: var(--font-heading);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.2rem;
+  cursor: none;
+  font-weight: 600;
+  transition: background 0.2s;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+
+.overlayBtn:hover {
+  background: var(--gold-light);
+}
+
+.info {
+  padding: 1rem 1.2rem 1.2rem;
+}
+
+.name {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--gold-light);
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+}
+
+.price {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+
+.colors {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.colorDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  cursor: none;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.colorDotActive {
+  border-color: var(--gold);
+  transform: scale(1.2);
+}
+
+@media (max-width: 1024px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 720px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .section { padding: 5rem 1.5rem; }
+}
+
+@media (max-width: 420px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.img {
+  width: 75%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
