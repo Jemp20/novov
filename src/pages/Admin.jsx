@@ -361,6 +361,29 @@ export default function Admin() {
                               </div>
                             )
                           })}
+                          {/* Subtotal productos */}
+                          {(() => {
+                            const subtotalProductos = (pedido.productos||[]).reduce((s,p) => {
+                              const tieneDescuento = pedido.tipoPago === "descuento" || pedido.tipoPago === "descuento_bold" || pedido.tipoPago === "descuento_paypal"
+                              const precio = tieneDescuento ? (p.price||0)*0.8 : (p.price||0)
+                              return s + precio * (p.qty||1)
+                            }, 0)
+                            const costoDomi = Number(pedido.costoDomi || 0)
+                            return (
+                              <>
+                                <div className={styles.tableRow} style={{ opacity: 0.6 }}>
+                                  <span>Subtotal</span><span/><span/>
+                                  <span>{fmt(subtotalProductos)}<span className={styles.cellUSD}>{fmtUSD(subtotalProductos)}</span></span>
+                                </div>
+                                {costoDomi > 0 && (
+                                  <div className={styles.tableRow} style={{ opacity: 0.6 }}>
+                                    <span>🛵 Domicilio ({pedido.zonaDomi || "Barranquilla"})</span><span/><span/>
+                                    <span>{fmt(costoDomi)}<span className={styles.cellUSD}>{fmtUSD(costoDomi)}</span></span>
+                                  </div>
+                                )}
+                              </>
+                            )
+                          })()}
                           <div className={`${styles.tableRow} ${styles.tableTotal}`}>
                             <span>Total</span><span/><span/>
                             <span>{fmt(pedido.total)}<span className={styles.cellUSD}>{fmtUSD(pedido.total)}</span></span>
