@@ -128,19 +128,21 @@ export default function Cart({ cart, isOpen, onClose, onAdd, onRemove, onDelete 
         productos: cart.map(p => ({ id: p.id, name: p.name, price: Number(p.price || 0), qty: Number(p.qty || 1) }))
       }
       const id = await crearPedido(pedidoData)
-      setIdPedido(id); setSuccess(true)
+      setIdPedido(id)
+      setSuccess(true)
 
-      // Contraentrega: correo inmediato (no hay pago online que confirmar)
-      if (tipoPagoSel === "contraentrega") {
+      // Enviar correo primero (contraentrega y Bold)
+      if (tipoPagoSel === "contraentrega" || esBold(tipoPagoSel)) {
         await enviarCorreoConfirmacion(pedidoData, id)
       }
 
-      // Bold: abre la pasarela — el correo NO se envía aquí,
-      // se enviará cuando Bold confirme el pago (webhook futuro)
+      // Bold: abre la pasarela DESPUÉS de que el correo se envió
       if (esBold(tipoPagoSel)) {
-        const url = "https://checkout.bold.co/payment/LNK_C4QRVVIMZB"
-        const v = window.open(url, "_blank")
-        if (!v) window.location.href = url
+        setTimeout(() => {
+          const url = "https://checkout.bold.co/payment/LNK_C4QRVVIMZB"
+          const v = window.open(url, "_blank")
+          if (!v) window.location.href = url
+        }, 1500)
       }
     } catch (err) { console.error(err); setError("❌ Error al procesar el pedido. Intenta de nuevo.") }
   }
