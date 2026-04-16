@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 export default function NovovChatbot() {
   const [open, setOpen] = useState(false)
@@ -9,6 +9,12 @@ export default function NovovChatbot() {
       content: '✦ Bienvenido a NOVO·V.\nSoy Hermes.\n\nNo vendemos gorras… ofrecemos distinción.\n\n¿Qué deseas explorar hoy?'
     }
   ])
+
+  const bottomRef = useRef(null)
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
 
   const addMessage = (role, content) => {
     setMessages(prev => [...prev, { role, content }])
@@ -21,49 +27,43 @@ export default function NovovChatbot() {
       case 'inicio':
         if (option === 'Ver colección') {
           addMessage('assistant',
-            'Nuestra colección actual es limitada.\nCada pieza está diseñada como símbolo de estatus.\n\n¿Qué línea deseas ver?'
+            'Nuestra colección es limitada.\nCada pieza es símbolo de estatus.\n\n¿Qué línea deseas ver?'
           )
           setStep('coleccion')
         }
 
         if (option === 'Envíos') {
           addMessage('assistant',
-            'Enviamos a toda Colombia.\n\n• Ciudades principales: 2–4 días\n• Otras zonas: 5–9 días\n• Seguimiento en tiempo real incluido'
+            'Envíos en Colombia:\n\n• 2–4 días ciudades\n• 5–9 días otras zonas\n• Seguimiento incluido'
           )
         }
 
         if (option === 'Pagos') {
           addMessage('assistant',
-            'Aceptamos pagos por: • Bold + Paypal, \n se realiza mediante al hacer la compra en el carrito.'
+            'Pagos disponibles:\n• Bold\n• PayPal\n\nSe realiza al finalizar compra.'
           )
         }
 
         if (option === 'Asesor') {
-          window.open('https://wa.me/573218074429?text=Hola,%20quiero%20asesoría%20NOVOV', '_blank')
+          window.open('https://wa.me/573218074429', '_blank')
         }
         break
 
       case 'coleccion':
         if (option === 'Obsidian I') {
-          addMessage('assistant',
-            'Obsidian I\n\nLa oscuridad convertida en presencia.\n\nPrecio: $280.000\nEdición limitada.'
-          )
+          addMessage('assistant', 'Obsidian I\n\n$280.000\nEdición limitada.')
         }
 
         if (option === 'Aurum Elite') {
-          addMessage('assistant',
-            'Aurum Elite\n\nInspirada en el oro de Helios.\n\nPrecio: $260.000\nEdición limitada.'
-          )
+          addMessage('assistant', 'Aurum Elite\n\n$260.000\nEdición limitada.')
         }
 
         if (option === 'Ivory Night') {
-          addMessage('assistant',
-            'Ivory Night\n\nElegancia silenciosa.\n\nPrecio: $240.000\nEdición limitada.'
-          )
+          addMessage('assistant', 'Ivory Night\n\n$240.000\nEdición limitada.')
         }
 
         if (option === 'Comprar') {
-          window.open('https://wa.me/573218074429?text=Hola,%20quiero%20comprar%20una%20gorra%20NOVOV', '_blank')
+          window.open('https://wa.me/573218074429', '_blank')
         }
 
         if (option === 'Volver') {
@@ -77,21 +77,20 @@ export default function NovovChatbot() {
     if (step === 'inicio') {
       return ['Ver colección', 'Envíos', 'Pagos', 'Asesor']
     }
-
     if (step === 'coleccion') {
       return ['Obsidian I', 'Aurum Elite', 'Ivory Night', 'Comprar', 'Volver']
     }
-
     return []
   }
 
   return (
     <>
       <style>{`
+
         .novo-chat-fab {
           position: fixed;
-          bottom: 28px;
-          right: 28px;
+          bottom: 20px;
+          right: 20px;
           z-index: 999999;
           width: 60px;
           height: 60px;
@@ -104,26 +103,24 @@ export default function NovovChatbot() {
         }
 
         .novo-chat-window {
-  position: fixed;
-  bottom: 100px;
-  right: 28px;
-  z-index: 9998;
+          position: fixed;
+          bottom: 90px;
+          right: 20px;
+          z-index: 999999;
 
-  width: 370px;
-  height: 520px;
-  max-width: calc(100vw - 40px);
-  max-height: calc(100vh - 130px);
+          width: 360px;
+          height: 520px;
 
-  display: flex;
-  flex-direction: column;
+          display: flex;
+          flex-direction: column;
 
-  background: #0d0b08;
-  border: 1px solid #a07840;
-  border-radius: 6px;
+          background: #0d0b08;
+          border: 1px solid #a07840;
+          border-radius: 8px;
 
-  box-shadow: 0 16px 64px rgba(0,0,0,0.7);
-  overflow: hidden;
-}
+          box-shadow: 0 16px 64px rgba(0,0,0,0.7);
+          overflow: hidden;
+        }
 
         .novo-header {
           padding: 14px;
@@ -131,12 +128,11 @@ export default function NovovChatbot() {
           display: flex;
           justify-content: space-between;
           color: #d4a85a;
-          font-weight: 500;
         }
 
         .novo-messages {
+          flex: 1;
           padding: 16px;
-          max-height: 350px;
           overflow-y: auto;
         }
 
@@ -145,13 +141,15 @@ export default function NovovChatbot() {
           padding: 12px;
           border: 1px solid rgba(160,120,64,0.2);
           background: rgba(160,120,64,0.06);
-          line-height: 1.5;
+          color: #e8d9b8;
+          white-space: pre-line;
         }
 
         .novo-buttons {
           padding: 12px;
           display: grid;
           gap: 8px;
+          border-top: 1px solid rgba(160,120,64,0.2);
         }
 
         .novo-btn {
@@ -160,7 +158,6 @@ export default function NovovChatbot() {
           color: #d4a85a;
           padding: 10px;
           cursor: pointer;
-          transition: 0.2s;
         }
 
         .novo-btn:hover {
@@ -168,15 +165,14 @@ export default function NovovChatbot() {
           color: #000;
         }
 
-@media (max-width: 600px) {
-  .novo-chat-window {
-    right: 12px;
-    left: 12px;
-    width: auto;
-    height: 70vh;
-    bottom: 80px;
-  }
-}
+        @media (max-width: 600px) {
+          .novo-chat-window {
+            left: 12px;
+            right: 12px;
+            width: auto;
+            height: 70vh;
+          }
+        }
 
       `}</style>
 
@@ -196,6 +192,7 @@ export default function NovovChatbot() {
             {messages.map((m, i) => (
               <div key={i} className="novo-bubble">{m.content}</div>
             ))}
+            <div ref={bottomRef} />
           </div>
 
           <div className="novo-buttons">
