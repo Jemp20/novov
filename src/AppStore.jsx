@@ -9,7 +9,6 @@ import Contact from './components/Contact'
 import Cart from './components/Cart'
 import Footer from './components/Footer'
 import Checkout from "./components/Checkout"
-import WhatsAppButton from './components/WhatsAppButton'
 import Reviews from './components/Reviews'
 
 export default function AppStore() {
@@ -126,7 +125,7 @@ export default function AppStore() {
       )}
 
       {checkoutOpen && <Checkout cart={cart} onClose={() => setCheckoutOpen(false)} />}
-         <WhatsAppButton />
+         
     </>
   )
 }
