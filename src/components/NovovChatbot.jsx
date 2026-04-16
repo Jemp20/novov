@@ -157,15 +157,6 @@ export default function NovovChatbot() {
           background: #a07840;
           color: #000;
         }
-
-        @media (min-width: 768px) {
-  .novo-chat-window {
-    width: 370px;
-    left: auto;
-    right: 28px;
-  }
-}
-        
       `}</style>
 
       <button className="novo-chat-fab" onClick={() => setOpen(v => !v)}>
