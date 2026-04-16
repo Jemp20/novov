@@ -19,7 +19,7 @@ export default function Checkout({ cart, onClose }) {
 
   const TRM = 4200;
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
-  const totalConDescuento = Math.round(subtotal * 0.8);
+  const totalConDescuento = Math.round(subtotal * 0.9);
   const total = tipoPago === "descuento" ? totalConDescuento : subtotal;
 
   const handlePago = (tipo) => {
@@ -185,7 +185,7 @@ export default function Checkout({ cart, onClose }) {
         </button>
 
         <button className={styles.btnDescuento} onClick={() => handlePago("descuento")}>
-          20% OFF HOY — ${totalConDescuento.toLocaleString("es-CO")} COP
+          10% OFF HOY — ${totalConDescuento.toLocaleString("es-CO")} COP
           <span>~${(totalConDescuento / TRM).toFixed(2)} USD</span>
         </button>
 
@@ -212,7 +212,7 @@ export default function Checkout({ cart, onClose }) {
         <div className={styles.tipoPagoTag}>
           {tipoPago === "contraentrega" && "🤝 Paga al recibir"}
           {tipoPago === "online" && "💜 Pago en línea"}
-          {tipoPago === "descuento" && "🏷 20% OFF — Pago en línea"}
+          {tipoPago === "descuento" && "🏷 10% OFF — Pago en línea"}
           {" "}— ${total.toLocaleString("es-CO")} COP · ~${(total / TRM).toFixed(2)} USD
         </div>
 

@@ -36,9 +36,10 @@ export default function Contact() {
   }
 
   const contacts = [
-    { label: 'Instagram', value: '@novo.v', href: 'https://instagram.com' },
+    { label: 'Instagram', value: '@novo.v_', href: 'https://www.instagram.com/novo.v_?igsh=MXM2eGVwazRuMnJ1Yw==' },
     { label: 'WhatsApp',  value: '+57 321 807 4429', href: 'https://wa.me/573218074429' },
-    { label: 'Email',     value: 'hola@novov.co', href: 'mailto:hola@novov.co' },
+    { label: 'Email',     value: 'novo.v.nonovp@gmail.com', href: 'https://mail.google.com/mail/?view=cm&to=novo.v.nonovp@gmail.com' },
+    { label: 'Facebook', value: 'novo', href: 'https://www.facebook.com/share/18cEVkraKD/?mibextid=wwXIfr' },
     { label: 'Ubicación', value: 'Colombia', href: null },
   ]
 

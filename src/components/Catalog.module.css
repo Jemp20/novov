@@ -237,3 +237,12 @@
   display: block;
   margin: 0 auto;
 }
+.dropLabel {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-deep, #C9A96E);
+  opacity: 0.75;
+  margin: 4px 0 0 0;
+}

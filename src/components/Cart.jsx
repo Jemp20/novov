@@ -8,53 +8,74 @@ const PAYPAL_CLIENT_ID = "AdblM_bVAzI3-1ZxepHVfjmNTWsPM64jArJugsYnOTtXRZqDJWssHJ
 const TRM = 4200
 
 // 🛵 ZONAS DE DOMICILIO — BARRANQUILLA
+// Precios reales de domiciliario en moto, 2025. Origen: La Victoria (Zona 3).
 const ZONAS_DOMI = [
   {
-    zona: "Zona 1 — $5.000",
-    precio: 5000,
+    id: "z1",
+    zona: "Zona 1",
+    etiqueta: "Cerca · Barrios del Norte",
+    precio: 7000,
+    tiempo: "15–25 min",
+    icono: "🟢",
     barrios: [
-      "El Golf","Villa Country","El Prado","Alto Prado","Altos del Prado","Ciudad Jardín",
-      "Los Nogales","Nuevo Horizonte","La Campiña","Granadillo","Bellavista","Campo Alegre",
-      "Villa Tarel","Parque Rosado","San Francisco","El Porvenir","Barrio Abajo","El Rosario",
-      "Las Delicias","Las Mercedes","Montecristo","La Concepción","El Castillo Norte"
+      "El Prado","Alto Prado","Altos del Prado","Villa Country","El Golf",
+      "Ciudad Jardín","Los Nogales","La Campiña","Granadillo","Bellavista",
+      "Campo Alegre","Parque Rosado","Barrio Abajo","El Rosario","San Francisco",
+      "Las Delicias","Las Mercedes","La Concepción","Villa Tarel","Nuevo Horizonte"
     ]
   },
   {
-    zona: "Zona 2 — $7.000",
-    precio: 7000,
+    id: "z2",
+    zona: "Zona 2",
+    etiqueta: "Media · Suroccidente",
+    precio: 10000,
+    tiempo: "20–35 min",
+    icono: "🟡",
     barrios: [
       "Altamira","Altos de Riomar","Altos del Limón","Altos del Parque","Andalucía",
-      "Buenavista","El Limoncito","El Poblado","La Castellana","La Floresta","Las Flores",
-      "San Marino","San Salvador","San Vicente","Santa Mónica","Villa Campestre",
-      "Villa Carolina","Villa del Este","Villa Santos","Villas del Puerto",
-      "Paseo de la Castellana","Palmas del Río"
+      "Buenavista","El Limoncito","El Poblado","La Castellana","La Floresta",
+      "Las Flores","San Marino","San Salvador","San Vicente","Santa Mónica",
+      "Villa Campestre","Villa Carolina","Villa del Este","Villa Santos",
+      "Villas del Puerto","Paseo de la Castellana","Palmas del Río"
     ]
   },
   {
-    zona: "Zona 3 — $9.000",
-    precio: 9000,
+    id: "z3",
+    zona: "Zona 3",
+    etiqueta: "⭐ Zona de despacho · Sur",
+    precio: 6000,
+    tiempo: "10–20 min",
+    icono: "⭐",
     barrios: [
-      "Buenos Aires","Ciudadela 20 de Julio","El Santuario","La Sierrita","La Victoria",
-      "Las Américas","Las Cayenas","Las Gardenias","Las Granjas","Los Continentes",
-      "Los Girasoles","Santa María","Santo Domingo de Guzmán","Villa San Carlos",
-      "Carrizal","Cevillar","7 de Abril","20 de Julio","La Alboraya"
+      "La Victoria","Buenos Aires","Ciudadela 20 de Julio","El Santuario",
+      "La Sierrita","Las Américas","Las Cayenas","Las Gardenias","Las Granjas",
+      "Los Continentes","Los Girasoles","Santa María","Santo Domingo de Guzmán",
+      "Villa San Carlos","Carrizal","Cevillar","7 de Abril","20 de Julio","La Alboraya"
     ]
   },
   {
-    zona: "Zona 4 — $12.000",
-    precio: 12000,
+    id: "z4",
+    zona: "Zona 4",
+    etiqueta: "Amplia · Suroriental",
+    precio: 13000,
+    tiempo: "30–45 min",
+    icono: "🟠",
     barrios: [
       "Buena Esperanza","California","Caribe Verde","Carlos Meisel","Chiquinquirá",
-      "Ciudad Modesto","Colina Campestre","Cordialidad","Cuchilla de Villate","El Edén 2000",
-      "El Romance","El Silencio","Evaristo Sourdis","La Esmeralda","La Florida",
-      "La Libertad","La Pradera","Las Colinas","Las Estrellas","Las Malvinas",
-      "Las Terrazas","Loma Fresca","Los Olivos I","Los Olivos II","Los Rosales",
-      "Me Quejo","Nueva Granada","Olaya Herrera"
+      "Ciudad Modesto","Colina Campestre","Cordialidad","Cuchilla de Villate",
+      "El Edén 2000","El Romance","El Silencio","Evaristo Sourdis","La Esmeralda",
+      "La Florida","La Libertad","La Pradera","Las Colinas","Las Estrellas",
+      "Las Malvinas","Las Terrazas","Loma Fresca","Los Olivos I","Los Olivos II",
+      "Los Rosales","Me Quejo","Nueva Granada","Olaya Herrera"
     ]
   },
   {
-    zona: "Zona 5 — $15.000",
-    precio: 15000,
+    id: "z5",
+    zona: "Zona 5",
+    etiqueta: "Lejana · Suroriente / Occidente",
+    precio: 17000,
+    tiempo: "40–60 min",
+    icono: "🔴",
     barrios: [
       "Atlántico","Bella Arena","El Campito","El Milagro","José Antonio Galán",
       "La Chinita","La Magdalena","Las Nieves","Las Palmas","Las Palmeras",
@@ -64,8 +85,12 @@ const ZONAS_DOMI = [
     ]
   },
   {
-    zona: "Zona 6 — $18.000 (Soledad / Puerto Colombia)",
-    precio: 18000,
+    id: "z6",
+    zona: "Zona 6",
+    etiqueta: "Soledad · Puerto Colombia · Malambo",
+    precio: 22000,
+    tiempo: "50–75 min",
+    icono: "🔵",
     barrios: [
       "Soledad","Barrio Caracolí","Ciudad Caribe","Ciudadela Metropolitana",
       "Puerto Colombia","Villa Campestre Norte","Juan Mina","La Playa","Malambo"
@@ -169,7 +194,7 @@ export default function Cart({ cart, isOpen, onClose, onAdd, onRemove, onDelete 
 
   const costoEnvio  = esBarranquilla ? (zonaSel ? zonaSel.precio : 0) : 0
   const descuento   = (tipoPagoSel === "descuento_bold" || tipoPagoSel === "descuento_paypal")
-    ? Math.round(total * 0.8) : total
+    ? Math.round(total * 0.9) : total
   const totalFinal  = descuento + costoEnvio
 
   const handleChange = (e) => {
@@ -369,36 +394,36 @@ export default function Cart({ cart, isOpen, onClose, onAdd, onRemove, onDelete 
                 </span>
               </button>
               <button className={styles.payBtnYellow} onClick={() => setMostrarSubPago(true)}>
-                20% OFF hoy – {fmt(Math.round(total * 0.8))}<br/>
-                <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>{fmtUSD(Math.round(total * 0.8))}</span>
+                10% OFF hoy – {fmt(Math.round(total * 0.9))}<br/>
+                <span style={{ fontSize: '0.75rem', opacity: 0.7 }}>{fmtUSD(Math.round(total * 0.9))}</span>
               </button>
             </div>
             <p className={styles.footerNote}>Envíos a toda Colombia · Edición Limitada</p>
           </div>
         )}
 
-        {/* ── SUB-SELECTOR: 20% OFF → Bold o PayPal ── */}
+        {/* ── SUB-SELECTOR: 10% OFF → Bold o PayPal ── */}
         {paso === 2 && mostrarSubPago && (
           <div className={styles.footer} style={{ overflowY: 'auto', flex: 1 }}>
             <div className={styles.subtotal}>
-              <span>20% OFF</span>
+              <span>10% OFF</span>
               <div style={{ textAlign: 'right' }}>
-                <span className={styles.subtotalAmt}>{fmt(Math.round(total * 0.8))}</span>
-                <p className={styles.subtotalUSD}>{fmtUSD(Math.round(total * 0.8))}</p>
+                <span className={styles.subtotalAmt}>{fmt(Math.round(total * 0.9))}</span>
+                <p className={styles.subtotalUSD}>{fmtUSD(Math.round(total * 0.9))}</p>
               </div>
             </div>
             <p style={{ color: 'var(--gold-light)', opacity: 0.55, fontSize: '0.8rem', fontFamily: 'var(--font-body)', marginBottom: '1rem' }}>
-              ¿Cómo quieres pagar con el 20% de descuento?
+              ¿Cómo quieres pagar con el 10% de descuento?
             </p>
             <div className={styles.payOptions}>
               <button className={styles.payBtnBold} onClick={() => irAPaso3("descuento_bold")}>
-                💜 Bold – {fmt(Math.round(total * 0.8))}<br/>
-                <span style={{ fontSize: '0.75rem', opacity: 0.8 }}>{fmtUSD(Math.round(total * 0.8))}</span>
+                💜 Bold – {fmt(Math.round(total * 0.9))}<br/>
+                <span style={{ fontSize: '0.75rem', opacity: 0.8 }}>{fmtUSD(Math.round(total * 0.9))}</span>
               </button>
               <button className={styles.payBtnPaypal} style={paypalBtnStyle} onClick={() => irAPaso3("descuento_paypal")}>
-                💙 PayPal – {fmt(Math.round(total * 0.8))}<br/>
+                💙 PayPal – {fmt(Math.round(total * 0.9))}<br/>
                 <span style={{ fontSize: '0.75rem', opacity: 0.8 }}>
-                  {paypalReady ? fmtUSD(Math.round(total * 0.8)) : '⏳ cargando SDK…'}
+                  {paypalReady ? fmtUSD(Math.round(total * 0.9)) : '⏳ cargando SDK…'}
                 </span>
               </button>
             </div>
@@ -449,8 +474,8 @@ export default function Cart({ cart, isOpen, onClose, onAdd, onRemove, onDelete 
                   {tipoPagoSel === "contraentrega"    && `💚 Pago al recibir — ${fmt(total)}`}
                   {tipoPagoSel === "bold"             && `💜 Bold — ${fmt(total)}`}
                   {tipoPagoSel === "paypal"           && `💙 PayPal — ${fmt(total)}`}
-                  {tipoPagoSel === "descuento_bold"   && `💛 20% OFF · Bold — ${fmt(Math.round(total * 0.8))}`}
-                  {tipoPagoSel === "descuento_paypal" && `💛 20% OFF · PayPal — ${fmt(Math.round(total * 0.8))}`}
+                  {tipoPagoSel === "descuento_bold"   && `💛 10% OFF · Bold — ${fmt(Math.round(total * 0.9))}`}
+                  {tipoPagoSel === "descuento_paypal" && `💛 10% OFF · PayPal — ${fmt(Math.round(total * 0.9))}`}
                   {costoEnvio > 0 && (
                     <span style={{ display: 'block', marginTop: '4px', fontSize: '0.78rem', opacity: 0.7 }}>
                       🛵 Domicilio: +{fmt(costoEnvio)}
@@ -475,44 +500,99 @@ export default function Cart({ cart, isOpen, onClose, onAdd, onRemove, onDelete 
 
                   {/* 🛵 ZONA DE DOMI — solo aparece si escribe Barranquilla */}
                   {esBarranquilla && (
-                    <div style={{ marginTop: '0.6rem' }}>
-                      <p style={{ color: 'var(--gold)', fontSize: '0.72rem', letterSpacing: '0.1em', marginBottom: '0.5rem', opacity: 0.8 }}>
-                        🛵 ZONA DE DOMICILIO
-                      </p>
-                      <select
-                        className={styles.input}
-                        value={zonaSel ? zonaSel.zona : ""}
-                        onChange={(e) => {
-                          const found = ZONAS_DOMI.find(z => z.zona === e.target.value)
-                          setZonaSel(found || null)
-                          setBarrioSel("")
-                        }}
-                        style={{ cursor: 'pointer' }}
-                      >
-                        <option value="">Selecciona tu zona...</option>
+                    <div style={{ marginTop: '0.8rem' }}>
+                      {/* Header domicilio */}
+                      <div style={{
+                        display: 'flex', alignItems: 'center', gap: '8px',
+                        borderBottom: '1px solid rgba(201,169,110,0.2)',
+                        paddingBottom: '0.5rem', marginBottom: '0.75rem'
+                      }}>
+                        <span style={{ fontSize: '1rem' }}>🛵</span>
+                        <div>
+                          <p style={{ color: 'var(--gold)', fontSize: '0.7rem', letterSpacing: '0.14em', fontFamily: 'var(--font-heading)', margin: 0 }}>
+                            DOMICILIO EN BARRANQUILLA
+                          </p>
+                          <p style={{ color: 'var(--gold-deep)', fontSize: '0.68rem', opacity: 0.65, margin: 0, fontStyle: 'italic' }}>
+                            Despacho desde La Victoria · moto
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Cards de zonas */}
+                      <div style={{ display: 'grid', gap: '0.45rem', marginBottom: '0.6rem' }}>
                         {ZONAS_DOMI.map(z => (
-                          <option key={z.zona} value={z.zona}>{z.zona}</option>
+                          <div
+                            key={z.id}
+                            onClick={() => { setZonaSel(z); setBarrioSel("") }}
+                            style={{
+                              display: 'grid',
+                              gridTemplateColumns: '1.4rem 1fr auto',
+                              alignItems: 'center',
+                              gap: '10px',
+                              padding: '0.55rem 0.75rem',
+                              borderRadius: '6px',
+                              border: zonaSel?.id === z.id
+                                ? '1.5px solid var(--gold)'
+                                : '1px solid rgba(201,169,110,0.18)',
+                              background: zonaSel?.id === z.id
+                                ? 'rgba(201,169,110,0.1)'
+                                : 'rgba(255,255,255,0.02)',
+                              cursor: 'pointer',
+                              transition: 'all 0.2s ease',
+                            }}
+                          >
+                            <span style={{ fontSize: '0.9rem', textAlign: 'center' }}>{z.icono}</span>
+                            <div>
+                              <p style={{ margin: 0, fontSize: '0.72rem', fontFamily: 'var(--font-heading)', color: zonaSel?.id === z.id ? 'var(--gold)' : 'var(--gold-light)', letterSpacing: '0.08em' }}>
+                                {z.zona}
+                              </p>
+                              <p style={{ margin: 0, fontSize: '0.65rem', color: 'var(--gold-deep)', opacity: 0.7, marginTop: '1px' }}>
+                                {z.etiqueta}
+                              </p>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                              <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--gold)', fontFamily: 'var(--font-heading)', fontWeight: 'bold' }}>
+                                {fmt(z.precio)}
+                              </p>
+                              <p style={{ margin: 0, fontSize: '0.6rem', color: 'var(--gold-deep)', opacity: 0.6 }}>
+                                {z.tiempo}
+                              </p>
+                            </div>
+                          </div>
                         ))}
-                      </select>
+                      </div>
 
+                      {/* Selector de barrio (aparece al seleccionar zona) */}
                       {zonaSel && (
-                        <select
-                          className={styles.input}
-                          value={barrioSel}
-                          onChange={(e) => setBarrioSel(e.target.value)}
-                          style={{ cursor: 'pointer', marginTop: '0.4rem' }}
-                        >
-                          <option value="">Selecciona tu barrio...</option>
-                          {zonaSel.barrios.map(b => (
-                            <option key={b} value={b}>{b}</option>
-                          ))}
-                        </select>
-                      )}
+                        <>
+                          <select
+                            className={styles.input}
+                            value={barrioSel}
+                            onChange={(e) => setBarrioSel(e.target.value)}
+                            style={{ cursor: 'pointer', marginTop: '0.2rem' }}
+                          >
+                            <option value="">Selecciona tu barrio en {zonaSel.zona}…</option>
+                            {zonaSel.barrios.map(b => (
+                              <option key={b} value={b}>{b}</option>
+                            ))}
+                          </select>
 
-                      {zonaSel && (
-                        <p style={{ fontSize: '0.75rem', color: 'var(--gold)', opacity: 0.7, marginTop: '0.4rem', textAlign: 'right' }}>
-                          🛵 Domicilio: <strong>{fmt(zonaSel.precio)}</strong>
-                        </p>
+                          {/* Resumen de domicilio seleccionado */}
+                          <div style={{
+                            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                            marginTop: '0.55rem', padding: '0.5rem 0.75rem',
+                            background: 'rgba(201,169,110,0.07)',
+                            borderRadius: '5px',
+                            border: '1px dashed rgba(201,169,110,0.25)'
+                          }}>
+                            <span style={{ fontSize: '0.7rem', color: 'var(--gold-deep)', opacity: 0.75 }}>
+                              🛵 {barrioSel || zonaSel.zona} · {zonaSel.tiempo}
+                            </span>
+                            <span style={{ fontSize: '0.82rem', color: 'var(--gold)', fontFamily: 'var(--font-heading)', fontWeight: 'bold' }}>
+                              +{fmt(zonaSel.precio)}
+                            </span>
+                          </div>
+                        </>
                       )}
                     </div>
                   )}

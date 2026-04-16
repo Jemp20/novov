@@ -2,8 +2,8 @@ import { useRef, useEffect } from 'react'
 import styles from './About.module.css'
 
 const pillars = [
-  { num: '100%', label: 'Materiales\nPremium',   glyph: 'Α' },
-  { num: '—I',   label: 'Marca\nColombiana',     glyph: 'Κ' },
+  { num: '100%', label: 'Calidad\nPremium',   glyph: 'Α' },
+  { num: '—I',   label: 'Traidas de\nUSA,\nMexico y Panamá',     glyph: 'Κ' },
   { num: '∞',    label: 'Distinción\nGarantizada', glyph: 'Ω' },
 ]
 
@@ -43,13 +43,20 @@ export default function About() {
           </h2>
 
           <p className={styles.body}>
-            NOVO.V nació de una obsesión por el detalle. Como los maestros artesanos
-            de la Antigua Grecia que esculpían cada mármol con devoción, cada gorra
-            es concebida como una pieza de autor — donde la materia prima, la
-            construcción y el acabado se elevan por encima del estándar.
+            NOVO.V no nace del momento… nace de la herencia.
+            De una visión donde el detalle no es decoración, es identidad.
+            Inspirados en la grandeza de la Antigua Grecia, 
+            cada pieza es concebida como legado — 
+            una fusión entre arte, precisión y carácter. 
+            Aquí, la materia prima no solo se elige… se honra. 
+            La construcción no solo se ejecuta… se perfecciona. 
+            El acabado no solo se observa… se siente. 
+            Porque lo verdadero no sigue tendencias… trasciende generaciones. 
+            Esto no es moda. 
+            Es lujo hereditario.
           </p>
           <p className={styles.body}>
-            No vendemos gorras. Ofrecemos distinción.
+            “Herencia y Poder”
           </p>
 
           <div className={styles.quoteBlock}>

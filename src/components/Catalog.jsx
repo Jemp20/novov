@@ -6,19 +6,12 @@ import { collection, onSnapshot } from 'firebase/firestore'
 
 const TRM = 4200
 
-function fmtCOP(n) {
-  return '$' + Number(n).toLocaleString('es-CO') + ' COP'
-}
-function fmtUSD(n) {
-  return '$' + (n / TRM).toFixed(2) + ' USD'
-}
-
 const FILTER_LABELS = {
-  all:      'Olympo',
-  classic:  'Baseball cap',
-  snapback: 'Trucker cap',
-  fitted:   'Cowboyhat',
-  trucker:  'Durags',
+  all:          'Olympo',
+  classic:      'Baseball cap',
+  snapback:     'Trucker cap',
+  fitted:       'Cowboyhat',
+  trucker:      'Multimarcas',
 }
 
 export default function Catalog({ onAddToCart }) {
@@ -104,25 +97,11 @@ export default function Catalog({ onAddToCart }) {
           >
             <div className={styles.imgWrap}>
               <img src={p.imagen} alt={p.nombre} className={styles.img} />
-              <div className={styles.overlay}>
-                <button
-                  className={styles.overlayBtn}
-                  onClick={() => onAddToCart({
-                    id:    p.id,
-                    name:  p.nombre,
-                    price: p.precio,
-                    img:   p.imagen,
-                  })}
-                >
-                  + Carrito
-                </button>
-              </div>
             </div>
 
             <div className={styles.info}>
               <p className={styles.name}>{p.nombre}</p>
-              <p className={styles.price}>{fmtCOP(p.precio)}</p>
-              <p className={styles.priceUSD}>{fmtUSD(p.precio)}</p>
+              <p className={styles.dropLabel}>Drop a venir</p>
               {p.colores?.length > 0 && (
                 <div className={styles.colors}>
                   {p.colores.map((c, ci) => (

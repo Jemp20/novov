@@ -22,7 +22,7 @@ export default function Hero() {
 
         <p className={styles.sub}>Gorras de Alta Distinción</p>
         <p className={styles.tagline}>
-          Forjadas con la precisión de los antiguos artesanos
+          Los ultimos son los primeros
         </p>
 
         <div className={styles.ctas}>

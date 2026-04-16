@@ -28,7 +28,7 @@ const ESTADO_LABEL = { en_proceso: "En proceso", enviado: "Enviado", en_camino: 
 const ESTADO_EMOJI = { en_proceso: "⏳", enviado: "📦", en_camino: "🚚", entregado: "✅" }
 const ESTADO_COLOR = { en_proceso: "#f59e0b", enviado: "#a855f7", en_camino: "#3b82f6", entregado: "#22c55e" }
 
-const CATEGORIAS = ["classic", "snapback", "fitted", "trucker"]
+const CATEGORIAS = ["Olympo", "BaseballCap", "Multimarcas", "Cowboyhat", "Truckercap"]
 
 // ─── Componente principal ──────────────────────────────────────────────────────
 export default function Admin() {
