@@ -104,16 +104,26 @@ export default function NovovChatbot() {
         }
 
         .novo-chat-window {
-          position: fixed;
-          bottom: 100px;
-          right: 28px;
-          width: 380px;
-          background: #0b0a08;
-          border: 1px solid #a07840;
-          color: #e8d9b8;
-          z-index: 999999;
-          box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-        }
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  z-index: 9998;
+
+  width: 370px;
+  height: 520px;
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 130px);
+
+  display: flex;
+  flex-direction: column;
+
+  background: #0d0b08;
+  border: 1px solid #a07840;
+  border-radius: 6px;
+
+  box-shadow: 0 16px 64px rgba(0,0,0,0.7);
+  overflow: hidden;
+}
 
         .novo-header {
           padding: 14px;
@@ -157,6 +167,17 @@ export default function NovovChatbot() {
           background: #a07840;
           color: #000;
         }
+
+@media (max-width: 600px) {
+  .novo-chat-window {
+    right: 12px;
+    left: 12px;
+    width: auto;
+    height: 70vh;
+    bottom: 80px;
+  }
+}
+
       `}</style>
 
       <button className="novo-chat-fab" onClick={() => setOpen(v => !v)}>
