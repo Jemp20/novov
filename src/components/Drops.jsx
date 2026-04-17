@@ -5,13 +5,13 @@ import Negra1 from "../assets/gorras/Negra1.jpg";
 import Roja2 from "../assets/gorras/Roja2.jpg";
 import Azul3 from "../assets/gorras/Azul3.jpg";
 
-const TRM = 4200 // 1 USD = 4,200 COP — actualiza este valor cuando quieras
+const TRM = 3600 // 1 USD = 3,600 COP — actualiza este valor cuando quieras
 
 const drops = [
   {
     id: 'obsidian',
-    name: 'Obsidian I',
-    price: 280000,
+    name: 'Hades',
+    price: 130000,
     oldPrice: 350000,
     tag: 'Drop 01',
     badge: 'Nuevo',
@@ -20,8 +20,8 @@ const drops = [
   },
   {
     id: 'aurum',
-    name: 'Aurum Elite',
-    price: 260000,
+    name: 'Ares',
+    price: 140000,
     oldPrice: 320000,
     tag: 'Drop 02',
     badge: 'Nuevo',
@@ -31,7 +31,7 @@ const drops = [
   {
     id: 'ivory',
     name: 'Ivory Night',
-    price: 240000,
+    price: 120000,
     oldPrice: 300000,
     tag: 'Drop 03',
     badge: 'Nuevo',
@@ -106,8 +106,7 @@ export default function Drops({ onAddToCart }) {
               <p className={styles.desc}>{drop.desc}</p>
               <div className={styles.greekKey} aria-hidden="true" />
               <p className={styles.price}>
-                <s>{fmtCOP(drop.oldPrice)}</s>
-                <strong>{fmtCOP(drop.price)}</strong>
+              <strong>{fmtCOP(drop.price)}</strong>
               </p>
               <p className={styles.priceUSD}>{fmtUSD(drop.price)}</p>
             </div>
