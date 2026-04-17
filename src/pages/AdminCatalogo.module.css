@@ -414,6 +414,19 @@
 @media (max-width: 600px) {
   .formCard { padding: 1.25rem; }
   .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+
+  .prodActions {
+    flex-wrap: wrap;
+  }
+
+  .btnToggleActivo,
+  .btnEditar {
+    flex: 1;
+  }
+
+  .btnEliminar {
+    flex: 1 1 100%;
+  }
 }
 
 /* ── Upload zone ─────────────────────────────────────────────────────────── */
