@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import styles from "./TrackOrder.module.css";
 
-// ✅ Por esto
 const PASOS = [
   { key: "en_proceso",  label: "Pedido recibido", icon: "📜" },
   { key: "enviado",     label: "Enviado",         icon: "🏺" },
@@ -18,30 +17,33 @@ export default function TrackOrder({ onClose }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
- // ✅ Pon esto
-const buscarPedido = () => {
-  const id = idInput.trim();
-  if (!id) return;
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
-  setLoading(true);
-  setError("");
-  setPedido(null);
+  const buscarPedido = () => {
+    const id = idInput.trim();
+    if (!id) return;
 
-  const ref = doc(db, "pedidos", id);
-  const unsub = onSnapshot(ref, (snap) => {
-    setLoading(false);
-    if (!snap.exists()) {
-      setError("No encontramos un pedido con ese ID. Verifica el código que te enviamos.");
-    } else {
-      setPedido({ id: snap.id, ...snap.data() });
-    }
-  }, () => {
-    setLoading(false);
-    setError("Error al consultar. Intenta de nuevo.");
-  });
+    setLoading(true);
+    setError("");
+    setPedido(null);
 
-  return unsub;
-};
+    const ref = doc(db, "pedidos", id);
+    const unsub = onSnapshot(ref, (snap) => {
+      setLoading(false);
+      if (!snap.exists()) {
+        setError("No encontramos un pedido con ese ID. Verifica el código que te enviamos.");
+      } else {
+        setPedido({ id: snap.id, ...snap.data() });
+      }
+    }, () => {
+      setLoading(false);
+      setError("Error al consultar. Intenta de nuevo.");
+    });
+
+    return unsub;
+  };
 
   const pasoActual = pedido ? ORDEN_ESTADO.indexOf(pedido.estado) : -1;
 
@@ -89,7 +91,6 @@ const buscarPedido = () => {
               <p><span>Total:</span> ${pedido.total?.toLocaleString("es-CO")}</p>
             </div>
 
-            {/* Línea de progreso */}
             <div className={styles.timeline}>
               {PASOS.map((paso, i) => {
                 const completado = i <= pasoActual;
@@ -108,7 +109,6 @@ const buscarPedido = () => {
               })}
             </div>
 
-            {/* Productos */}
             {pedido.productos && pedido.productos.length > 0 && (
               <div className={styles.productos}>
                 <h4>Productos</h4>
