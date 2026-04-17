@@ -16,21 +16,12 @@ export default function Navbar({ onCartOpen, cartCount }) {
 
   return (
     <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}>
-      {/* Greek top border */}
       <div className={styles.meander} aria-hidden="true" />
 
       <div className={styles.inner}>
         <a href="#home" className={styles.logo}>
           <img src={logoImg} alt="NOVO·V" className={styles.logoImg} />
         </a>
-
-        <button
-          className={styles.hamburger}
-          onClick={() => setMenuOpen(v => !v)}
-          aria-label="Menu"
-        >
-          <span /><span /><span />
-        </button>
 
         <ul className={`${styles.links} ${menuOpen ? styles.open : ''}`}>
           {['drops','catalog','about','contact'].map(section => (
@@ -48,13 +39,21 @@ export default function Navbar({ onCartOpen, cartCount }) {
           ))}
         </ul>
 
-        <button 
-  className={styles.link} 
-  style={{ background: 'none', border: 'none', cursor: 'pointer' }}
-  onClick={() => setTrackOpen(true)}
->
-  RASTREAR
-</button>
+        <button
+          className={styles.link}
+          style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+          onClick={() => setTrackOpen(true)}
+        >
+          RASTREAR
+        </button>
+
+        <button
+          className={styles.hamburger}
+          onClick={() => setMenuOpen(v => !v)}
+          aria-label="Menu"
+        >
+          <span /><span /><span />
+        </button>
 
         <button className={styles.cartBtn} onClick={onCartOpen} aria-label="Carrito">
           <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -66,8 +65,7 @@ export default function Navbar({ onCartOpen, cartCount }) {
         </button>
       </div>
 
-    {trackOpen && <TrackOrder onClose={() => setTrackOpen(false)} />}
-
+      {trackOpen && <TrackOrder onClose={() => setTrackOpen(false)} />}
     </nav>
   )
 }
