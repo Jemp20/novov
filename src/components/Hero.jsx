@@ -26,7 +26,7 @@ export default function Hero() {
         </p>
 
         <div className={styles.ctas}>
-          <a href="#drops" className={styles.ctaPrimary}>Ver Colección →</a>
+          <a href="#catalog" className={styles.ctaPrimary}>Ver Catálogo →</a>
           <a href="#about" className={styles.ctaSecondary}>Nuestra Historia</a>
         </div>
       </div>
